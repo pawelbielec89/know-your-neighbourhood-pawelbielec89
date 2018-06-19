@@ -39,6 +39,9 @@ public class DataManager {
                     counties.add(entry);
                 } else if (entry.length > 4) {
                     communities.add(entry);
+                    int entryLength = entry.length;
+                    String trim = entry[entryLength - 1].trim();
+                    entry[entryLength - 1] = trim;
                 }
             }
         } catch (IOException e) {

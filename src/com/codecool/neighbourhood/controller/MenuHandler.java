@@ -23,7 +23,7 @@ public class MenuHandler {
 
 
         display.show("General statistics:");
-        int[] stats = statisticsProvider.listStatistics();
+        List<String[]> stats = statisticsProvider.listStatistics();
         display.showStatistics(stats);
 
         display.show("\nTop 3 longest name locations:");

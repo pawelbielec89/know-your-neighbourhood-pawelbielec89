@@ -15,7 +15,9 @@ public class Statistics {
         this.index = index;
     }
 
-    public int[] listStatistics() {
+    public List<String[]> listStatistics() {
+
+
         int[] listedStatistics = new int[9];
         listedStatistics[0] = voivodeshipList.size();
         listedStatistics[1] = voivodeshipList.get(index).getCountyList().size();
@@ -26,7 +28,25 @@ public class Statistics {
         listedStatistics[6] = countCommunityTypeAmount("miasto");
         listedStatistics[7] = countCitysOnCountyRights();
         listedStatistics[8] = countCommunityTypeAmount("delegatura");
-        return listedStatistics;
+        List<String[]> stats = new ArrayList<>();
+        String[] countyTypes = new String[9];
+        countyTypes[0] = "województwo";
+        countyTypes[1] = " powiaty";
+        countyTypes[2] = " gmina miejska";
+        countyTypes[3] = " gmina wiejska";
+        countyTypes[4] = " gmina miejsko-wiejska";
+        countyTypes[5] = " obszar wiejski";
+        countyTypes[6] = " miasto";
+        countyTypes[7] = " miasto na prawach powiatu";
+        countyTypes[8] = " delegatura";
+        for (int i = 0; i < listedStatistics.length; i++) {
+            String[] statList = new String[2];
+            statList[0] = String.valueOf(listedStatistics[i]);
+            statList[1] = countyTypes[i];
+            stats.add(statList);
+        }
+
+        return stats;
     }
 
     private int countCommunityTypeAmount(String str) {
@@ -87,35 +107,37 @@ public class Statistics {
         Set<String> locations = new HashSet<>();
         for (County county : voivodeshipList.get(index).getCountyList()) {
             for (Community community : county.getCommunityList()) {
-                if(locations.contains(community.getName())){
+                if (locations.contains(community.getName())) {
                     locationsWithMoreThanOneCategory.add(community.getName());
-                } else{
+                } else {
                     locations.add(community.getName());
                 }
             }
 
         }
-        for(String str: locationsWithMoreThanOneCategory) {
+        for (String str : locationsWithMoreThanOneCategory) {
             System.out.println(str);
         }
         return locationsWithMoreThanOneCategory;
     }
-    public String getCountyWithMostCommunitys(){
+
+    public String getCountyWithMostCommunitys() {
         int communitysAmount = 0;
         String countyName = "";
-        for (County county : voivodeshipList.get(index).getCountyList()){
-            if(county.getCommunityList().size()>communitysAmount){
+        for (County county : voivodeshipList.get(index).getCountyList()) {
+            if (county.getCommunityList().size() > communitysAmount) {
                 communitysAmount = county.getCommunityList().size();
                 countyName = county.getName();
             }
         }
         return countyName;
     }
-    public List<String[]> serach(String str){
+
+    public List<String[]> serach(String str) {
         List<String[]> results = new ArrayList<>();
         int listIndex = 0;
-        for (County county : voivodeshipList.get(index).getCountyList()){
-            if(county.getName().toLowerCase().contains(str.toLowerCase())){
+        for (County county : voivodeshipList.get(index).getCountyList()) {
+            if (county.getName().toLowerCase().contains(str.toLowerCase())) {
                 String[] location = new String[2];
                 location[0] = county.getName();
                 location[1] = county.getType();
@@ -124,16 +146,16 @@ public class Statistics {
             }
         }
         for (County county : voivodeshipList.get(index).getCountyList()) {
-            for (Community community : county.getCommunityList()){
-                if(community.getName().toLowerCase().contains(str.toLowerCase())){
+            for (Community community : county.getCommunityList()) {
+                if (community.getName().toLowerCase().contains(str.toLowerCase())) {
                     String[] location = new String[2];
                     location[0] = community.getName();
                     location[1] = community.getType();
                     results.add(listIndex, location);
                     listIndex++;
+                }
             }
-    }
-}
-return results;
+        }
+        return results;
     }
 }

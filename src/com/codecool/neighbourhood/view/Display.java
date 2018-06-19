@@ -11,17 +11,22 @@ public void show(String str){
     System.out.println(str);
 }
 
-public void showStatistics(int[] stats){
-        System.out.println(stats[0] + " województwo\n" +
-                           stats[1] + " powiaty\n" +
-                stats[2] + " gmina miejska\n" +
-                stats[3] + " gmina wiejska\n" +
-                stats[4] + " gmina miejsko-wiejska\n" +
-                stats[5] + " obszar wiejski\n" +
-                stats[6] + " miasto\n" +
-                stats[7] + " miasto na prawach powiatu\n" +
-                stats[8] + " delegatura");
-}
+    public void showStatistics(List<String[]> stats){
+
+
+        System.out.format("/------------------------------------\\%n");
+        String leftAlignFormat = "|  %-33s |%n";
+        System.out.format(leftAlignFormat, stats.get(0)[0]);
+        leftAlignFormat = "| %-5s | %-26s |%n";
+        for (int i = 1; i < stats.size(); i++){
+        System.out.format("+-------+----------------------------+%n");
+
+            System.out.format(leftAlignFormat,stats.get(i)[0], stats.get(i)[1]);
+        }
+        System.out.format("\\------+-----------------------------/%n");
+
+    }
+
 public void showLongestCityNames(String[] names){
         System.out.println(names[0]+"\n"+
                             names[1]+"\n"+
@@ -32,9 +37,18 @@ public void showSet(Set<String> elements){
             System.out.println(str);
         }
 }
-public void showSearch(List<String[]> locations){
-    for(String[] location : locations){
-        System.out.println(location[0] + ": " + location[1]);
+
+    public void showSearch(List<String[]> locations){
+        String leftAlignFormat = "| %-22s | %-27s |%n";
+
+        System.out.format("/------------------------------------------------------\\%n");
+        System.out.format("|      Location          |           Type              |%n");
+        System.out.format("+------------------------+-----------------------------+%n");
+
+        for (int i = 0; i < locations.size(); i++){
+            System.out.format(leftAlignFormat,locations.get(i)[0], locations.get(i)[1]);
+        }
+        System.out.format("\\------------------------+-----------------------------/%n");
+
     }
-}
 }
